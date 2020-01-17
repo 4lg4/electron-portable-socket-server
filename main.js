@@ -1,17 +1,6 @@
 // Modules to control application life and create native browser window
 
-const socket = require('./app/socket');
-socket.create();
-
 const {app, BrowserWindow, Tray, Menu, ipcMain, nativeImage} = require('electron');
-const path = require('path');
-const platform = require('os').platform();
-
-const imageFolder = path.resolve(__dirname, 'build', platform);
-const iconTrayImagePath = `${imageFolder}/icon-tray.png`;
-const iconTrayImage = nativeImage.createFromPath(iconTrayImagePath);
-iconTrayImage.setTemplateImage(true);
-
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -22,8 +11,8 @@ let trayMenu;
 function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 900,
-    height: (process.env.NODE_ENV === 'development') ? 900 : 600,
+    width: (process.env.NODE_ENV === 'development') ? 900 : 300,
+    height: (process.env.NODE_ENV === 'development') ? 900 : 300,
     // minWidth: 800,
     // maxWidth: 800,
     // minHeight: 600,
@@ -48,10 +37,11 @@ function createWindow() {
 
   if (process.env.NODE_ENV === 'development') {
     mainWindow.openDevTools();
-    mainWindow.loadURL('http://localhost:3333');
-  } else {
-    // mainWindow.loadFile('./frontend/dist/index.html');
   }
+
+  const socket = require('./app/socket');
+  socket.create();
+  mainWindow.loadURL('http://localhost:3333');
 
   // Open the DevTools.
   // mainWindow.openDevTools();
@@ -93,9 +83,18 @@ function createWindow() {
     mainWindow.hide();
   });
 
-  if (!tray) {
-    createTray();
-  }
+  // if (!tray) {
+  //   const path = require('path');
+  //   const platform = require('os').platform();
+  //   const iconTrayImagePath = path.resolve(__dirname, 'build', platform, 'icon-tray.png');
+  //   console.log('################');
+  //   console.log(iconTrayImagePath);
+  //   console.log('################');
+  //   const iconTrayImage = nativeImage.createFromPath(iconTrayImagePath);
+  //   iconTrayImage.setTemplateImage(true);
+  //
+  //   createTray(iconTrayImagePath);
+  // }
 
   if (process.env.NODE_ENV !== 'development') {
     const template = [
@@ -140,7 +139,7 @@ const menuUpdate = ({id, label}) => {
 
 ipcMain.on('menu-update', (evt, data) => menuUpdate(data));
 
-const createTray = () => {
+const createTray = (iconTrayImagePath) => {
   tray = new Tray(iconTrayImagePath);
   tray.setPressedImage(iconTrayImagePath);
   trayMenu = Menu.buildFromTemplate([
