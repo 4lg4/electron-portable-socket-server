@@ -1,6 +1,6 @@
 {
   "name": "portable-server-socket",
-  "version": "2.0.6",
+  "version": "0.0.1",
   "description": "Portable Server Socket",
   "main": "main.js",
   "scripts": {
@@ -9,7 +9,11 @@
     "dev:electron": "npm run version && NODE_ENV=development electron .",
     "dev": "run-p dev:electron dev:frontend",
     "pack": "build --dir",
-    "build": "NODE_ENV=production npm run build:frontend && npm run version && npm run build:mac",
+    "build": "NODE_ENV=production npm run build:frontend && npm run version && npm run build:all",
+    "build:dev": "NODE_ENV=production npm run build:frontend && npm run version && npm run build:mac",
+    "build:dev:_": "NODE_ENV=production npm run build:frontend && npm run version && npm run build:_",
+    "build:_": "build --macos --linux",
+    "build:all": "build --macos --linux --windows",
     "build:mac": "build --macos",
     "release:mac": "VERSION=$(<version) && cd dist/mac && zip -r \"${VERSION}_pss.zip\" PSSocket.app && mv \"${VERSION}_pss.zip\" ../../release",
     "build:linux": "build --linux",
@@ -47,7 +51,7 @@
   },
   "build": {
     "appId": "com.portable-server-socket",
-    "productName": "Portable Server Socket",
+    "productName": "PSSocket",
     "mac": {
       "category": "utils"
     },
