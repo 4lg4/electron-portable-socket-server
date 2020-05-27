@@ -2,7 +2,9 @@ import Vue from "vue";
 import Router from "vue-router";
 
 import InitialModule from "@/modules/initial-module.vue";
-// import WebServerModule from "@/modules/web-server-module.vue";
+import CommandsModule from "@/modules/commands-module.vue";
+import CommandModule from "@/modules/command-module.vue";
+import ConfigModule from "@/modules/config-module.vue";
 
 Vue.use(Router);
 
@@ -13,12 +15,22 @@ const router = new Router({
       path: "/",
       name: "DashboardModule",
       component: InitialModule
+    },
+    {
+      path: "/commands/new",
+      name: "CommandModule",
+      component: CommandModule
+    },
+    {
+      path: "/commands",
+      name: "CommandsModule",
+      component: CommandsModule
+    },
+    {
+      path: "/config",
+      name: "ConfigModule",
+      component: ConfigModule
     }
-    // {
-    //   path: "/",
-    //   name: "DashboardModule",
-    //   component: WebServerModule
-    // }
     // {
     //   path: "/config",
     //   name: "ConfigModule",
