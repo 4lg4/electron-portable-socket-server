@@ -4,10 +4,10 @@ const del = store => {
   delete localStorage[store];
 };
 
-const get = store => {
+const get = () => {
   let dataStored = {};
   try {
-    dataStored = JSON.parse(localStorage.getItem(store || storeDefault));
+    dataStored = JSON.parse(localStorage.getItem(storeDefault));
   } catch (e) {
     dataStored = {};
   }
@@ -15,15 +15,16 @@ const get = store => {
   return dataStored;
 };
 
-const set = (store, data = {}) => {
+const set = (data = {}) => {
   let dataToStore = {};
+
   try {
     dataToStore = JSON.stringify(data);
   } catch (e) {
     dataToStore = JSON.stringify({});
   }
 
-  localStorage.setItem(store || storeDefault, dataToStore);
+  localStorage.setItem(storeDefault, dataToStore);
 };
 
 export { get, set, del };
