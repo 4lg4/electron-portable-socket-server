@@ -1,6 +1,39 @@
 <template>
   <div id="app">
-    <router-view />
+    <div class="app_header">
+      <router-link to="/" class="menu__item">
+        <b-icon
+        pack="fas"
+        icon="tachometer-alt"
+        size="is-small">
+      </b-icon>
+        DASHBOARD</router-link> |
+      <router-link to="/streaming" class="menu__item">
+        <b-icon
+          pack="fas"
+          icon="stream"
+          size="is-small">
+        </b-icon>
+        STREAMING
+      </router-link> |
+      <router-link to="/commands" class="menu__item">
+        <b-icon
+          pack="fas"
+          icon="terminal"
+          size="is-small">
+        </b-icon>
+        COMMANDS</router-link> |
+      <router-link to="/config" class="menu__item">
+        <b-icon
+          pack="fas"
+          icon="sliders-h"
+          size="is-small">
+        </b-icon>
+        CONFIG</router-link>
+    </div>
+    <div class="app__body">
+      <router-view />
+    </div>
   </div>
 </template>
 
@@ -10,6 +43,14 @@
 #app {
   width: 100%;
   height: 100%;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.app__body {
+  flex: auto;
+  height: -webkit-fill-available;
 }
 
 html,
@@ -29,5 +70,9 @@ body {
 
 *:focus {
   outline: none !important;
+}
+
+.app_header .menu__item.router-link-exact-active {
+  background-color: #2da23c;
 }
 </style>
