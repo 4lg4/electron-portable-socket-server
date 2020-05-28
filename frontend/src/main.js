@@ -20,7 +20,8 @@ import {
   faStream,
   faSearch,
   faPaperPlane,
-  faTimes
+  faTimes,
+  faSyncAlt
 
 } from "@fortawesome/free-solid-svg-icons";
 library.add(
@@ -33,7 +34,8 @@ library.add(
   faStream,
   faSearch,
   faPaperPlane,
-  faTimes
+  faTimes,
+  faSyncAlt
 );
 Vue.component("vue-fontawesome", FontAwesomeIcon);
 Vue.use(Buefy, {

@@ -5,6 +5,7 @@ import InitialModule from "@/modules/initial-module.vue";
 import CommandsModule from "@/modules/commands-module.vue";
 import CommandModule from "@/modules/command-module.vue";
 import ConfigModule from "@/modules/config-module.vue";
+import StreamingModule from "@/modules/streaming-module.vue";
 
 Vue.use(Router);
 
@@ -25,6 +26,11 @@ const router = new Router({
       path: "/commands",
       name: "CommandsModule",
       component: CommandsModule
+    },
+    {
+      path: "/streaming",
+      name: "StreamingModule",
+      component: StreamingModule
     },
     {
       path: "/config",
