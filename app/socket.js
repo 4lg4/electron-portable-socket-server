@@ -34,13 +34,23 @@ module.exports.create = function socketCreate(opt = defaults) {
   });
 };
 
+let io;
 function addSocket(http) {
-  const io = require('socket.io')(http);
+  io = require('socket.io')(http);
 
   io.on('connection', function(socket) {
-    console.log('Connected =>', socket);
+    // console.log('Connected =>', socket);
     // TODO: add support for user registry
     io.emit('channel-log', {message: `connected ${new Date().toISOString()}`});
+
+    const clients = Object.keys(io.sockets.connected).map((id) => {
+      return {
+        id,
+        room: io.sockets.connected[id].nsp.name,
+      };
+    });
+
+    io.emit('clients', {message: `clients`, clients});
 
     // socket.on('chat message', function(msg) {
     //   io.emit('chat message', msg);
@@ -55,6 +65,17 @@ function addRoutes(app) {
 
   app.get('/api/ping', function(req, res) {
     res.status(200).send({message: 'pong'});
+  });
+
+  app.get('/api/clients', function(req, res) {
+    const clients = Object.keys(io.sockets.connected).map((id) => {
+      return {
+        id,
+        room: io.sockets.connected[id].nsp.name,
+      };
+    });
+
+    res.status(200).send({message: 'clients', clients});
   });
 
   // TODO: add support for user registry

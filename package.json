@@ -5,10 +5,12 @@
   "main": "main.js",
   "scripts": {
     "dev:frontend": "cd frontend && npm run dev",
-    "build:frontend": "cd frontend && npm run build && cd ..",
+    "dev:backend": "cd frontend/src/core && node server",
     "dev:electron": "npm run version && NODE_ENV=development electron .",
+    "dev:noelectron": "run-p dev:backend dev:frontend",
     "dev": "run-p dev:electron dev:frontend",
     "pack": "build --dir",
+    "build:frontend": "cd frontend && npm run build && cd ..",
     "build": "NODE_ENV=production npm run build:frontend && npm run version && npm run build:all",
     "build:dev": "NODE_ENV=production npm run build:frontend && npm run version && npm run build:mac",
     "build:dev:_": "NODE_ENV=production npm run build:frontend && npm run version && npm run build:_",
@@ -44,6 +46,7 @@
     "prettier": "^1.19.1"
   },
   "dependencies": {
+    "@msgpack/msgpack": "^1.12.2",
     "axios": "^0.18.0",
     "express": "^4.17.1",
     "socket.io": "^2.3.0",
