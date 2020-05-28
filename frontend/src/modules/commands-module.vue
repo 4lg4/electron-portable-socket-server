@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="commands-module">
     <b-button
       type="is-info"
       icon-right="plus"
@@ -8,15 +8,34 @@
       @click="add"
     />
 
-    <h1>
-      Commands
-    </h1>
-    <div>
-      <command-card
-        v-for="(command, index) in storeState.commands"
-        :key="index"
-        :value="command"
-      ></command-card>
+    <div class="commands-module__search">
+      <b-field>
+        <b-input
+          v-model="state.filter"
+          @input="filter"
+          type="search"
+          icon-pack="fas"
+          icon="search"
+          icon-right="times"
+          icon-right-clickable
+          @icon-right-click="filterClear"
+        ></b-input>
+      </b-field>
+    </div>
+
+    <div class="commands-module__commands">
+      <template v-if="state.commands.length === 0">
+        <strong>no matches</strong>
+      </template>
+
+      <template v-if="state.commands.length > 0">
+        <command-card
+          v-for="(command, index) in state.commands"
+          :key="index"
+          :value="command"
+          @edit="edit"
+        ></command-card>
+      </template>
     </div>
   </div>
 </template>
@@ -33,22 +52,81 @@ export default {
     "command-card": CommandCard
   },
   setup(props, context) {
-    const state = reactive({});
+    const state = reactive({
+      filter: "",
+      commands: storeState.commands
+    });
 
     function add() {
-      context.root.$router.push({ path: "/commands/new" });
+      storeState.command = {
+        id: null,
+        class: storeState.classes[0].id,
+        title: "",
+        command: {}
+      };
+
+      context.root.$router.push({ name: "command-module" });
+    }
+
+    function edit(command) {
+      storeState.command = command;
+      context.root.$router.push({ name: "command-module" });
+    }
+
+    const indexedClasses = storeState.classes.reduce((reduced, item) => {
+      reduced[
+        item.id
+      ] = `${item.name.toLowerCase()} ${item.description.toLowerCase()}`;
+
+      return reduced;
+    }, {});
+
+    function filter() {
+      if (!state.filter) {
+        state.commands = storeState.commands;
+        return;
+      }
+
+      state.commands = storeState.commands.filter(
+        item =>
+          !!`${indexedClasses[item.class]} ${item.title.toLowerCase()}`.match(
+            state.filter
+          )
+      );
+    }
+
+    function filterClear() {
+      state.filter = "";
+      filter();
     }
 
     return {
       state,
       storeState,
-      add
+      add,
+      edit,
+      filter,
+      filterClear
     };
   }
 };
 </script>
 
 <style scoped>
+.commands-module {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.commands-module__commands {
+  flex: auto;
+}
+
+.commands-module__search {
+  margin: 15px 0;
+}
+
 .commands-module__save {
   position: absolute;
   right: 15px;

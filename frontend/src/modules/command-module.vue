@@ -9,7 +9,7 @@
     />
 
     <section>
-      <b-field label="Simple">
+      <b-field label="Class">
         <b-select placeholder="Select a name" v-model="state.class">
           <option
             v-for="(cls, index) in storeState.classes"
@@ -24,7 +24,6 @@
       <b-field label="Title">
         <b-input v-model="state.title"></b-input>
       </b-field>
-      <pre>{{ state }}</pre>
 
       <div class="command-module__editor">
         <h3><strong>Command</strong></h3>
@@ -64,6 +63,8 @@
         </b-tabs>
       </div>
     </section>
+
+    <!--    <pre>{{ storeState.commands }}</pre>-->
   </div>
 </template>
 
@@ -81,10 +82,10 @@ export default {
   name: "command-module",
   setup() {
     const state = reactive({
-      id: null,
-      title: "",
-      json: {},
-      class: storeState.classes[0].id,
+      id: storeState.command.id,
+      title: storeState.command.title,
+      json: storeState.command.command,
+      class: storeState.command.class,
       rawJson: computed({
         get() {
           return JSON.stringify(state.json, null, 2);
@@ -124,6 +125,12 @@ export default {
         return;
       }
 
+      toSave.id = state.id;
+      const cmdIndex = storeState.commands.findIndex(
+        ({ id }) => id === state.id
+      );
+      storeState.commands.splice(cmdIndex, 1, toSave);
+
       saveStore();
     }
 
@@ -161,8 +168,8 @@ export default {
 
 <style>
 .command-module__editor__raw textarea {
-  resize: none;
+  resize: vertical;
   width: 100%;
-  height: 100%;
+  /*height: 100%;*/
 }
 </style>
