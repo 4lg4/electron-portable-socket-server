@@ -1,7 +1,8 @@
 # Portable server socket
 > part of Yuri's project
 
-![image](./build/docs.png)
+![image](./build/docs/docs.png)
+[User Manual](./build/docs/README.md)
 
 ## Looking for a compiled app?
 TODO: add link here
@@ -22,15 +23,15 @@ npm run dev
 ```
 
 #### Socket server isolation
-| to run the socket server isolated run
+> to run the socket server isolated run
 ``` bash
 node app/socket-isolation-test.js
 ```
-| then access to connect clients
+> then access to connect clients
 ``` bash
 http://localhost:3333/ping
 ```
-| then access to get the connected clients
+> then access to get the connected clients
 ``` bash
 http://localhost:3333/api/clients
 ```
