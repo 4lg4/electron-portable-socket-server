@@ -1,25 +1,31 @@
 <template>
-  <div>
+  <div class="initial-module">
     <p>
-      you can access <strong>http://localhost:3333/ping</strong> on your browser
+      <strong>to connect clients:</strong> Open <strong>http://localhost:3333/ping</strong> on your browser, then click refresh button
     </p>
-    <h1>Ping ???</h1>
+    <hr>
     <div>
-      <p>{{ message }}</p>
+      <strong>CLIENTS</strong>
     </div>
-    <div>
-
-
-<!--      <textarea v-model="body" class="a-textarea"></textarea> <br />-->
-      <button @click="send">Send</button>
+    <div class="initial-module__action">
+      <b-button
+        type="is-info"
+        class="commands-module__save"
+        pack="fas"
+        icon-left="sync-alt"
+        @click="getClients"
+        >refresh list</b-button
+      >
+    </div>
+    <div class="initial-module__list">
+      <pre>{{ state.clients }}</pre>
     </div>
   </div>
 </template>
 
 <script>
 import http from "axios";
-
-import { encode } from "@msgpack/msgpack";
+import { reactive } from "@vue/composition-api";
 
 export default {
   data() {
@@ -28,24 +34,28 @@ export default {
       body: ""
     };
   },
-  created() {
-    http.get("/api/ping").then(({ data }) => (this.message = data.message));
-  },
-  methods: {
-    send() {
-      console.log(this);
-      const a = JSON.parse(this.body);
-      console.log(a);
-      // console.log('decode', decode(a));
-      console.log('encode', encode(a));
-    },
+  setup() {
+    const state = reactive({
+      clients: []
+    });
+
+    function getClients() {
+      http
+        .get("/api/clients")
+        .then(({ data }) => (state.clients = data.clients));
+    }
+
+    return {
+      state,
+      getClients
+    };
   }
 };
 </script>
 
 <style scoped>
-.a-textarea {
-  width: 80%;
-  height: 150px;
+.initial-module__action {
+  text-align: right;
+  margin-bottom: 10px;
 }
 </style>
