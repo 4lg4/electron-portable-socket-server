@@ -8,10 +8,33 @@ Vue.use(VueCompositionApi);
 
 import Buefy from "buefy";
 import "buefy/dist/buefy.css";
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faSave, faPlus, faEdit, faTachometerAlt, faSlidersH, faTerminal, faStream } from '@fortawesome/free-solid-svg-icons'
-library.add(faSave, faPlus, faEdit, faTachometerAlt, faSlidersH, faTerminal, faStream);
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import {
+  faSave,
+  faPlus,
+  faEdit,
+  faTachometerAlt,
+  faSlidersH,
+  faTerminal,
+  faStream,
+  faSearch,
+  faPaperPlane,
+  faTimes
+
+} from "@fortawesome/free-solid-svg-icons";
+library.add(
+  faSave,
+  faPlus,
+  faEdit,
+  faTachometerAlt,
+  faSlidersH,
+  faTerminal,
+  faStream,
+  faSearch,
+  faPaperPlane,
+  faTimes
+);
 Vue.component("vue-fontawesome", FontAwesomeIcon);
 Vue.use(Buefy, {
   defaultIconComponent: "vue-fontawesome",

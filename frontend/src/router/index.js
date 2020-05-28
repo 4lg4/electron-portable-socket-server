@@ -17,8 +17,8 @@ const router = new Router({
       component: InitialModule
     },
     {
-      path: "/commands/new",
-      name: "CommandModule",
+      path: "/command",
+      name: "command-module",
       component: CommandModule
     },
     {
