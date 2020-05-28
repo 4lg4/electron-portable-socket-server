@@ -2,6 +2,7 @@
 > part of Yuri's project
 
 ![image](./build/docs/docs.png)
+![video](./build/docs/howtouse.mov)
 [User Manual](./build/docs/README.md)
 
 ## Looking for a compiled app?

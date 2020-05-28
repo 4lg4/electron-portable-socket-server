@@ -6,14 +6,14 @@
 
 #### Commands
 > list of commands
-![image](./build/docs/commands.png)
+![image](./commands.png)
 
 > editing / creating a command
-![image](./build/docs/command.png)
+![image](./command.png)
 
 #### Classes
 > list of classes they are part of the CONFIG module tab Classes
-![image](./build/docs/classes.png)
+![image](./classes.png)
 
 > editing / creating a class
-![image](./build/docs/classe.png)
+![image](./classe.png)
