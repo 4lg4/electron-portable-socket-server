@@ -4,7 +4,7 @@
       <!--      <b-tab-item label="General">-->
 
       <!--      </b-tab-item>-->
-      <b-tab-item label="Classes">
+      <b-tab-item label="CLASSES">
         <div class="config-classes__header">
           <b-button type="is-info" icon-left="plus" pack="fas" @click="addClass"
             >add new class</b-button
@@ -19,8 +19,7 @@
           {{ cls }}
         </config-class-card>
       </b-tab-item>
-      <b-tab-item label="Store">
-        <strong>STORE</strong>
+      <b-tab-item label="STORE">
         <p>to export the store just copy this content</p>
         <pre>{{ storeState }}</pre>
       </b-tab-item>
@@ -63,9 +62,14 @@ export default {
 </script>
 
 <style scoped>
-.config-classes__class {
-  margin: 5px 0;
+.config-module {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  height: 100%;
+  padding-bottom: 100px;
 }
+
 .config-classes__header {
   text-align: right;
   margin-bottom: 10px;
