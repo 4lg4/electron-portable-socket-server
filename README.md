@@ -20,3 +20,18 @@ npm run build
 ``` bash
 npm run dev
 ```
+
+#### Socket server isolation
+| to run the socket server isolated run
+``` bash
+node app/socket-isolation-test.js
+```
+| then access to connect clients
+``` bash
+http://localhost:3333/ping
+```
+| then access to get the connected clients
+``` bash
+http://localhost:3333/api/clients
+```
+
